@@ -1,9 +1,9 @@
 
 <form action="" method="post">
 
-    <div class="wg_gitlab_select_div">
+    <div class="gitlab_select_div">
         <label>Gitlab account</label>
-        <select id="wg_gitlab_access_selector" name="access_id">
+        <select id="gitlab_access_selector" name="access_id">
             {% for data in accessData %}
                 <option value="{{ data.id }}"{% if data.id == access.id %} selected="selected"{% endif %}>
                     {{ data }}
@@ -15,11 +15,11 @@
 
 </form>
 
-<div class="wg_gitlab_select_div">
+<div class="gitlab_select_div">
     <label>Gitlab project</label>
-    <select id="wg_gitlab_project_selector">
+    <select id="gitlab_project_selector">
         {% for data in projects %}
-            <option>{{ data.code }}</option>
+            <option>{{ data.name }}</option>
         {% endfor %}
     </select>
 </div>

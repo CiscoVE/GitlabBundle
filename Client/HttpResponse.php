@@ -1,12 +1,12 @@
 <?php
 
-namespace WG\GitlabBundle\Client;
+namespace CiscoSystems\GitlabBundle\Client;
 
 class HttpResponse
 {
     protected $body;
     protected $statusCode;
-    
+
     /**
      * @param string
      * @param integer
@@ -16,7 +16,7 @@ class HttpResponse
         $this->body = $body;
         $this->statusCode = intval( $statusCode );
     }
-    
+
     /**
      * @return string
      */
@@ -24,7 +24,7 @@ class HttpResponse
     {
         return $this->body;
     }
-    
+
     /**
      * @param string
      */
@@ -32,7 +32,7 @@ class HttpResponse
     {
         $this->body = $body;
     }
-    
+
     /**
      * @return integer
      */
@@ -40,7 +40,7 @@ class HttpResponse
     {
         return $this->statusCode;
     }
-    
+
     /**
      * @param integer
      */

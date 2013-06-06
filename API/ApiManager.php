@@ -1,14 +1,15 @@
 <?php
 
-namespace WG\GitlabBundle\API;
+namespace CiscoSystems\GitlabBundle\API;
 
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
-use WG\GitlabBundle\Client\HttpClientInterface,
-    WG\GitlabBundle\Entity\Access,
-    WG\GitlabBundle\API\Gitlab\APIv2;
+use CiscoSystems\GitlabBundle\Client\HttpClientInterface;
+use CiscoSystems\GitlabBundle\Entity\Access;
+use CiscoSystems\GitlabBundle\API\Gitlab\APIv2;
+use CiscoSystems\GitlabBundle\API\Gitlab\APIv3;
 
 class ApiManager
 {
@@ -17,20 +18,20 @@ class ApiManager
     protected $client;
     protected $api;
     protected $userId;
-    
+
     public function __construct( ObjectManager $om, SecurityContextInterface $sec, HttpClientInterface $client )
     {
         $this->om = $om;
         $this->sec = $sec;
         $this->client = $client;
     }
-    
+
     /**
      * Obtain an object implementing the ApiInterface
      *
      * @param Access $access
-     * @return \WG\GitlabBundle\ApiInterface
-     * @throws \InvalidArgumentException 
+     * @return \CiscoSystems\GitlabBundle\ApiInterface
+     * @throws \InvalidArgumentException
      */
     public function getApi( Access $access )
     {
@@ -43,9 +44,7 @@ class ApiManager
                 switch ( $access->getApiVersion() )
                 {
                     case 'v2': return new APIv2( $this->client, $access );
-                    // case 'v3':
-                    //     // not implemented yet
-                    //     break;
+                    case 'v3': return new APIv3( $this->client, $access );
                 }
                 break;
             ////////////
@@ -62,35 +61,35 @@ class ApiManager
         }
         throw new \InvalidArgumentException( 'Requested API version not implemented yet.' );
     }
-    
+
     /**
      * Get credentials dataset(s)
-     * 
-     * Returns either a Doctrine Collection of WG\GitlabBundle\Entity\Access instances
-     * or a singular WG\GitlabBundle\Entity\Access instance
+     *
+     * Returns either a Doctrine Collection of CiscoSystems\GitlabBundle\Entity\Access instances
+     * or a single CiscoSystems\GitlabBundle\Entity\Access instance
      *
      * @param integer $accessId
-     * @return mixed 
+     * @return mixed
      */
     public function getAccessData( $accessId = null )
     {
         if ( null !== $accessId )
         {
-            return $this->om->getRepository( 'WGGitlabBundle:Access' )
+            return $this->om->getRepository( 'CiscoSystemsGitlabBundle:Access' )
                             ->findOneBy( array(
                                 'userId' => $this->getUserId(),
                                 'id' => $accessId,
                             ));
         }
-        return $this->om->getRepository( 'WGGitlabBundle:Access' )
+        return $this->om->getRepository( 'CiscoSystemsGitlabBundle:Access' )
                         ->findBy( array( 'userId' => $this->getUserId() ) );
     }
-    
+
     /**
-     * Creates an instance of WG\GitlabBundle\Entity\Access and presets
+     * Creates an instance of CiscoSystems\GitlabBundle\Entity\Access and presets
      * it with the User ID obtained from the current security context
      *
-     * @return \WG\GitlabBundle\Entity\Access 
+     * @return \CiscoSystems\GitlabBundle\Entity\Access
      */
     public function createAccessObject()
     {
@@ -98,13 +97,13 @@ class ApiManager
         $access->setUserId( $this->getUserId() );
         return $access;
     }
-    
+
     /**
      * Obtain the User ID from the current security context.
      * Your User object must implement a getId() method.
      *
      * @return integer
-     * @throws \Exception 
+     * @throws \Exception
      */
     public function getUserId()
     {

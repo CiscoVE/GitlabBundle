@@ -1,12 +1,12 @@
 <?php
 
-namespace WG\GitlabBundle\Controller;
+namespace CiscoSystems\GitlabBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\Request;
 
-use WG\GitlabBundle\Entity\Access,
-    WG\GitlabBundle\Form\Type\AccessType;
+use CiscoSystems\GitlabBundle\Entity\Access;
+use CiscoSystems\GitlabBundle\Form\Type\AccessType;
 
 class AccessController extends Controller
 {
@@ -37,7 +37,7 @@ class AccessController extends Controller
                     $api = $this->get( 'gitlab' )->getApi( $newAccess );
                     if ( null !== $access = $api->authenticate( $newAccess ) )
                     {
-                        $this->get( 'session' )->set( 'wg_gitlab_access_id', $access->getId() );
+                        $this->get( 'session' )->set( 'gitlab_access_id', $access->getId() );
                         $em = $this->getDoctrine()->getEntityManager();
                         $em->persist( $newAccess );
                         $em->flush();
@@ -47,21 +47,21 @@ class AccessController extends Controller
             }
         }
         // Render view
-        return $this->render( 'WGGitlabBundle:Access:index.html.twig', array(
+        return $this->render( 'CiscoSystemsGitlabBundle:Access:index.html.twig', array(
             'form' => $form->createView(),
             'accessdata' => $existingAccessData,
         ));
     }
-    
+
     public function deleteAction( Request $request )
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $access = $em->getRepository( 'WGGitlabBundle:Access' )->find( $request->get( 'id' ) );
+        $access = $em->getRepository( 'CiscoSystemsGitlabBundle:Access' )->find( $request->get( 'id' ) );
         $em->remove( $access );
         $em->flush();
-        return $this->redirect( $this->generateUrl( 'wg_gitlab_access' ) );
+        return $this->redirect( $this->generateUrl( 'gitlab_access' ) );
     }
-    
+
     public function selectAction( Request $request )
     {
         $accessData = $this->get( 'gitlab' )->getAccessData();
@@ -73,10 +73,10 @@ class AccessController extends Controller
         $access = null !== $request->get( 'access_id' )
                 ? $this->get( 'gitlab' )->getAccessData( $request->get( 'access_id' ) )
                 : $accessData[0];
-        $this->get( 'session' )->set( 'wg_gitlab_access_id', $access->getId() );
+        $this->get( 'session' )->set( 'gitlab_access_id', $access->getId() );
         $api = $this->get( 'gitlab' )->getApi( $access );
         $projects = $api->getProjects();
-        return $this->render( 'WGGitlabBundle:Access:select.html.twig', array(
+        return $this->render( 'CiscoSystemsGitlabBundle:Access:select.html.twig', array(
             'accessData' => $accessData,
             'access' => $access,
             'projects' => $projects,

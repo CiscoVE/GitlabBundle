@@ -1,22 +1,22 @@
 
-{% if app.session.hasFlash( 'wg_gitlab_notice' ) %}
-    <div class="wg_gitlab_notice">
-        {{ app.session.flash( 'wg_gitlab_notice' ) }}
+{% if app.session.hasFlash( 'gitlab_notice' ) %}
+    <div class="gitlab_notice">
+        {{ app.session.flash( 'gitlab_notice' ) }}
     </div>
 {% endif %}
 
-{% render 'WGGitlabBundle:Access:select' %}
+{% render 'CiscoSystemsGitlabBundle:Access:select' %}
 
-<form id="wg_gitlab_issue_form" action="" method="post">
+<form id="gitlab_issue_form" action="" method="post">
 
     {{ form_widget( form ) }}
-    
+
     <input type="submit" value="save" />
 
 </form>
 
 <script type="text/javascript">
-    var selectProject = document.getElementById( 'wg_gitlab_project_selector' );
+    var selectProject = document.getElementById( 'gitlab_project_selector' );
     presetProjectFieldInIssueForm( selectProject.value );
     if ( selectProject.children.length > 1 )
     {
@@ -24,9 +24,9 @@
     }
     else if ( selectProject.children.length < 1 )
     {
-        document.getElementById( 'wg_gitlab_issue_form' ).style.display = 'none';
+        document.getElementById( 'gitlab_issue_form' ).style.display = 'none';
     }
-    var selectAccess = document.getElementById( 'wg_gitlab_access_selector' );
+    var selectAccess = document.getElementById( 'gitlab_access_selector' );
     presetAccessFieldInIssueForm( selectAccess.value );
     //
     function projectSwitched( evt )

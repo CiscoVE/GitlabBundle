@@ -1,6 +1,6 @@
 <?php
 
-namespace WG\GitlabBundle\Model;
+namespace CiscoSystems\GitlabBundle\Model;
 
 class User extends BaseModel
 {
@@ -9,63 +9,63 @@ class User extends BaseModel
     protected $name;
     protected $blocked;
     protected $createdAt;
-    
+
     public function getId()
     {
         return $this->id;
     }
-    
+
     public function setId( $id )
     {
         $this->id = $id;
     }
-    
+
     public function getEmail()
     {
         return $this->email;
     }
-    
+
     public function setEmail( $email )
     {
         $this->email = $email;
     }
-    
+
     public function getName()
     {
         return $this->name;
     }
-    
+
     public function setName( $name )
     {
         $this->name = $name;
     }
-    
+
     public function getBlocked()
     {
         return $this->blocked;
     }
-    
+
     public function setBlocked( $blocked )
     {
         $this->blocked = $blocked;
     }
-    
+
     public function isBlocked( $block = null )
     {
         if ( null !== $block ) $this->blocked = $block;
         return $this->blocked;
     }
-    
+
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
-    
+
     public function setCreatedAt( $createdAt )
     {
         $this->createdAt = $createdAt;
     }
-    
+
     static public function map( array $data, User $user = null )
     {
         if ( null === $user ) $user = new User();

@@ -12,7 +12,7 @@ use CiscoSystems\GitlabBundle\Client\HttpClientInterface;
 use CiscoSystems\GitlabBundle\Entity\Access;
 use CiscoSystems\GitlabBundle\Model\Issue;
 
-class APIv2 implements ApiInterface
+class APIv3 implements ApiInterface
 {
     protected $client;
     protected $access;
@@ -47,8 +47,8 @@ class APIv2 implements ApiInterface
             throw new \InvalidArgumentException( 'Requested HTTP method unknown.' );
         }
         $url = $this->prepareUrl( $url );
-            echo $url;
-            die(); exit;
+//             echo $url;
+//             die(); exit;
         $jsonData = count( $data ) > 0 ? json_encode( $data, true ) : '';
         ////////////////////////////////////////
         // Make the request to the API server //

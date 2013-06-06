@@ -1,6 +1,6 @@
 <?php
 
-namespace WG\GitlabBundle\Model;
+namespace CiscoSystems\GitlabBundle\Model;
 
 class Project extends BaseModel
 {
@@ -17,7 +17,7 @@ class Project extends BaseModel
     protected $wallEnabled;
     protected $wikiEnabled;
     protected $createdAt;
-    
+
     public function getId()
     {
         return $this->id;
@@ -147,7 +147,7 @@ class Project extends BaseModel
     {
         $this->createdAt = $createdAt;
     }
-    
+
     static public function map( array $data, Project $project = null )
     {
         if ( null === $project ) $project = new Project();

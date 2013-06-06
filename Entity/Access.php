@@ -1,6 +1,6 @@
 <?php
 
-namespace WG\GitlabBundle\Entity;
+namespace CiscoSystems\GitlabBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,10 +12,10 @@ class Access
 {
     const TYPE_GITLAB = 1;
     const TYPE_GITHUB = 2;
-    
+
     const HOST_PROTOCOL_HTTP = 1;
     const HOST_PROTOCOL_HTTPS = 2;
-    
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -66,7 +66,7 @@ class Access
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,7 +86,7 @@ class Access
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -106,7 +106,7 @@ class Access
     /**
      * Get remoteUserId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRemoteUserId()
     {
@@ -126,7 +126,7 @@ class Access
     /**
      * Get remoteUsername
      *
-     * @return string 
+     * @return string
      */
     public function getRemoteUsername()
     {
@@ -146,7 +146,7 @@ class Access
     /**
      * Get apiType
      *
-     * @return integer 
+     * @return integer
      */
     public function getApiType()
     {
@@ -156,7 +156,7 @@ class Access
     /**
      * Get apiType in human readable form
      *
-     * @return string 
+     * @return string
      */
     public function getApiTypeHumanReadable()
     {
@@ -180,17 +180,17 @@ class Access
     /**
      * Get apiHostProtocol
      *
-     * @return integer 
+     * @return integer
      */
     public function getApiHostProtocol()
     {
         return $this->apiHostProtocol;
     }
-    
+
     /**
      * Get apiHostProtocol in human readable form
      *
-     * @return string 
+     * @return string
      */
     public function getApiHostProtocolHumanReadable()
     {
@@ -231,7 +231,7 @@ class Access
     /**
      * Get apiHost
      *
-     * @return string 
+     * @return string
      */
     public function getApiHost()
     {
@@ -251,7 +251,7 @@ class Access
     /**
      * Get apiVersion
      *
-     * @return string 
+     * @return string
      */
     public function getApiVersion()
     {
@@ -271,17 +271,17 @@ class Access
     /**
      * Get privateToken
      *
-     * @return string 
+     * @return string
      */
     public function getPrivateToken()
     {
         return $this->privateToken;
     }
-    
+
     /**
      * Create string representation of Access object
      *
-     * @return string 
+     * @return string
      */
     public function __toString()
     {

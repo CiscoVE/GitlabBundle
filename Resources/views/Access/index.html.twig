@@ -34,7 +34,7 @@
                     <td>{{ data.apiHostProtocolHumanReadable }}://{{ data.apiHost }}</td>
                     <td>{{ data.privateToken }}</td>
                     <td>{{ data.remoteUsername }}</td>
-                    <td>[ <a href="{{ path( 'wg_gitlab_access_delete', { 'id': data.id } ) }}">delete</a> ]</td>
+                    <td>[ <a href="{{ path( 'gitlab_access_delete', { 'id': data.id } ) }}">delete</a> ]</td>
                 </tr>
             {% endfor %}
         </tbody>

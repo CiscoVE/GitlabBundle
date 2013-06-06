@@ -1,15 +1,15 @@
 <?php
 
-namespace WG\GitlabBundle\Form\Type;
+namespace CiscoSystems\GitlabBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 
-use WG\GitlabBundle\Entity\Access;
+use CiscoSystems\GitlabBundle\Entity\Access;
 
 class AccessType extends AbstractType
 {
-    public function buildForm( FormBuilder $builder, array $options )
+    public function buildForm( FormBuilderInterface $builder, array $options )
     {
         $builder->add( 'id', 'hidden' );
         $builder->add( 'userId', 'hidden' );
@@ -29,14 +29,14 @@ class AccessType extends AbstractType
         ));
         $builder->add( 'privateToken' );
     }
-    
+
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'WG\GitlabBundle\Entity\Access',
+            'data_class' => 'CiscoSystems\GitlabBundle\Entity\Access',
         );
     }
-    
+
     public function getName()
     {
         return 'gitlabaccess';

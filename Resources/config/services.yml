@@ -1,14 +1,14 @@
 parameters:
-    wg_gitlab.client.class:       WG\GitlabBundle\Client\Buzz\BuzzClient
-    wg_gitlab.api_manager.class:  WG\GitlabBundle\API\ApiManager
+    gitlab.client.class:       CiscoSystems\GitlabBundle\Client\Buzz\BuzzClient
+    gitlab.api_manager.class:  CiscoSystems\GitlabBundle\API\ApiManager
 
 services:
-    # HTTP client
+    # HTTP client used internally
     gitlab.client:
-        class: %wg_gitlab.client.class%
-    # API management
+        class: %gitlab.client.class%
+    # API access
     gitlab:
-        class: %wg_gitlab.api_manager.class%
+        class: %gitlab.api_manager.class%
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@security.context'

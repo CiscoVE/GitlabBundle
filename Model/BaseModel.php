@@ -1,6 +1,6 @@
 <?php
 
-namespace WG\GitlabBundle\Model;
+namespace CiscoSystems\GitlabBundle\Model;
 
 class BaseModel
 {
