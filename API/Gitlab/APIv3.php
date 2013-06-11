@@ -16,6 +16,7 @@ class APIv3 implements ApiInterface
 {
     protected $client;
     protected $access;
+    protected $logger;
 
     /**
      * @param \CiscoSystems\GitlabBundle\Client\HttpClientInterface $client
@@ -25,6 +26,17 @@ class APIv3 implements ApiInterface
     {
         $this->client = $client;
         $this->access = $access;
+    }
+
+    public function setLogger( $logger )
+    {
+        $this->logger = $logger;
+    }
+
+    protected function log( $var )
+    {
+        if ( !$this->logger ) return;
+        $this->logger->log( $var );
     }
 
     /**
@@ -47,22 +59,26 @@ class APIv3 implements ApiInterface
             throw new \InvalidArgumentException( 'Requested HTTP method unknown.' );
         }
         $url = $this->prepareUrl( $url );
-//             echo $url;
-//             die(); exit;
-        $jsonData = count( $data ) > 0 ? json_encode( $data, true ) : '';
+        $this->log( $httpMethod );
+        $this->log( $url );
+        $this->log( $data );
+        $data = count( $data ) > 0 ? http_build_query( $data, true ) : '';
         ////////////////////////////////////////
         // Make the request to the API server //
         ////////////////////////////////////////
-        $httpResponse = $this->client->$httpMethod( $url, $jsonData );
+        $httpResponse = $this->client->$httpMethod( $url, $data );
         ////////////////////////////
         // Deal with the response //
         ////////////////////////////
         $statusCode = $httpResponse->getStatusCode();
+        $this->log( $statusCode );
         if ( !in_array( $statusCode, $benignStatusCodes ) )
         {
-            throw new HttpException( 'API Server returned status code ' . $statusCode );
+            //throw new HttpException( 'API Server returned status code ' . $statusCode );
         }
-        return json_decode( $httpResponse->getBody(), true );
+        $responseBody = $httpResponse->getBody();
+        $this->log( $responseBody );
+        return json_decode( $responseBody, true );
     }
 
     /**
@@ -151,7 +167,6 @@ class APIv3 implements ApiInterface
         if ( null === $issue->getProjectId() ) throw new \InvalidArgumentException( 'Issue must have a project ID!' );
         $url = '/projects/' . $issue->getProjectId() . '/issues';
         $data = array(
-            'id' => $issue->getProjectId(),
             'title' => $issue->getTitle(),
         );
         if ( null !== $issue->getDescription() ) $data['description'] = $issue->getDescription();
@@ -161,6 +176,7 @@ class APIv3 implements ApiInterface
         }
         catch( HttpException $e )
         {
+            $this->log( $e );
             return false;
         }
         return true;

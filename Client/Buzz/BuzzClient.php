@@ -22,21 +22,21 @@ class BuzzClient implements HttpClientInterface
         return new HttpResponse( $response->getContent(), $response->getStatusCode() );
     }
 
-    public function post( $url, $jsonData = ''  )
+    public function post( $url, $data = ''  )
     {
-        $response = $this->browser->post( $url, array(), $jsonData );
+        $response = $this->browser->post( $url, array(), $data );
         return new HttpResponse( $response->getContent(), $response->getStatusCode() );
     }
 
-    public function patch( $url, $jsonData = '' )
+    public function patch( $url, $data = '' )
     {
-        $response = $this->browser->patch( $url, array(), $jsonData );
+        $response = $this->browser->patch( $url, array(), $data );
         return new HttpResponse( $response->getContent(), $response->getStatusCode() );
     }
 
-    public function put( $url, $jsonData = ''  )
+    public function put( $url, $data = ''  )
     {
-        $response = $this->browser->put( $url, array(), $jsonData );
+        $response = $this->browser->put( $url, array(), $data );
         return new HttpResponse( $response->getContent(), $response->getStatusCode() );
     }
 

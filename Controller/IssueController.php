@@ -27,8 +27,8 @@ class IssueController extends Controller
                     $response = $this->get( 'gitlab' )->getApi( $access )->createIssue( $issue );
                     if ( $response )
                     {
-                        $this->get( 'session' )->setFlash( 'gitlab_raised_issue_id', $response['id'] );
-                        $this->get( 'session' )->setFlash( 'gitlab_notice', 'Issue has been raised.' );
+                        $this->get( 'session' )->getFlashBag()->add( 'gitlab_raised_issue_id', $response['id'] );
+                        $this->get( 'session' )->getFlashBag()->add( 'gitlab_notice', 'Issue has been raised.' );
                         return $this->redirect( $this->generateUrl( $request->get('_route') ) );
                     }
                 }
