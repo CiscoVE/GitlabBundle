@@ -5,11 +5,11 @@ parameters:
 services:
     # HTTP client used internally
     gitlab.client:
-        class: %gitlab.client.class%
+        class: '%gitlab.client.class%'
     # API access
     gitlab:
-        class: %gitlab.api_manager.class%
+        class: '%gitlab.api_manager.class%'
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@security.context'
+            - '@security.token_storage'
             - '@gitlab.client'

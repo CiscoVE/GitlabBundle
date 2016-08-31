@@ -2,10 +2,8 @@
 
 namespace CiscoSystems\GitlabBundle\API;
 
-use Symfony\Component\Security\Core\SecurityContextInterface;
-
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-
 use CiscoSystems\GitlabBundle\Client\HttpClientInterface;
 use CiscoSystems\GitlabBundle\Entity\Access;
 use CiscoSystems\GitlabBundle\API\Gitlab\APIv2;
@@ -14,15 +12,15 @@ use CiscoSystems\GitlabBundle\API\Gitlab\APIv3;
 class ApiManager
 {
     protected $om;
-    protected $sec;
+    protected $tokenStorage;
     protected $client;
     protected $api;
     protected $userId;
 
-    public function __construct( ObjectManager $om, SecurityContextInterface $sec, HttpClientInterface $client )
+    public function __construct( ObjectManager $om, TokenStorageInterface $tokenStorage, HttpClientInterface $client )
     {
         $this->om = $om;
-        $this->sec = $sec;
+        $this->tokenStorage = $tokenStorage;
         $this->client = $client;
     }
 
@@ -109,7 +107,7 @@ class ApiManager
     {
         if ( null === $this->userId )
         {
-            $user = $this->sec->getToken()->getUser();
+            $user = $this->tokenStorage->getToken()->getUser();
             if ( $user && gettype( $user ) == 'object' && method_exists( $user, 'getId' ) )
             {
                 $this->userId = $user->getId();
