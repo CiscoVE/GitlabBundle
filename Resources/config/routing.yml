@@ -1,22 +1,27 @@
 
 gitlab_issues:
-    pattern:  /issues
-    defaults: { _controller: CiscoSystemsGitlabBundle:Issue:index }
+    path:  /issues
+    defaults:
+        - _controller: CiscoSystemsGitlabBundle:Issue:index
 
 gitlab_issue_delete:
-    pattern:  /issue/{id}/delete
-    defaults: { _controller: CiscoSystemsGitlabBundle:Issue:delete }
+    path:  /issue/{id}/delete
+    defaults:
+        - _controller: CiscoSystemsGitlabBundle:Issue:delete
 
 gitlab_issue:
-    pattern:  /issue/{id}
-    defaults: { _controller: CiscoSystemsGitlabBundle:Issue:view }
+    path:  /issue/{id}
+    defaults:
+        - _controller: CiscoSystemsGitlabBundle:Issue:view
 
 gitlab_access:
-    pattern:  /access
-    defaults: { _controller: CiscoSystemsGitlabBundle:Access:index }
+    path:  /access
+    defaults:
+        - _controller: CiscoSystemsGitlabBundle:Access:index
 
 gitlab_access_delete:
-    pattern:  /access/{id}/delete
-    defaults: { _controller: CiscoSystemsGitlabBundle:Access:delete }
+    path:  /access/{id}/delete
+    defaults:
+        - _controller: CiscoSystemsGitlabBundle:Access:delete
     requirements:
         id: \d+
